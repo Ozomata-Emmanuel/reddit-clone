@@ -60,7 +60,7 @@ const SinglePostPage = () => {
     try {
       setCommenting(true);
       const resp = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/comment/create`,
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/comment/create`,
         commentData
       );
       if (resp.data.success) {
@@ -111,14 +111,14 @@ const SinglePostPage = () => {
   const getPostComments = async (id) => {
     try {
       const resp = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/comments/${id}`
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/comments/${id}`
       );
       if (resp.data.success) {
         const commentsWithUsers = await Promise.all(
           resp.data.data.map(async (comment) => {
             try {
               const userResp = await axios.get(
-                `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/${comment.user_id}`
+                `https://reddit-clone-backend-sdts.onrender.com/reddit/api/user/${comment.user_id}`
               );
               return {
                 ...comment,
@@ -174,14 +174,14 @@ const SinglePostPage = () => {
       try {
         setLoading(true);
         const resp = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${id}`
+          `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/${id}`
         );
         if (resp.data.success) {
           setPost(resp.data.data);
           try {
             setLoading(true);
             const response = await axios.get(
-              `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/${resp.data.data.user_id}`
+              `https://reddit-clone-backend-sdts.onrender.com/reddit/api/user/${resp.data.data.user_id}`
             );
             if (response.data.success) {
               setPostCreator(response.data.data);
@@ -242,13 +242,13 @@ const SinglePostPage = () => {
 
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${postId}/vote?action=${action}`,
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/${postId}/vote?action=${action}`,
         { userId }
       );
 
       if (!response.data.success) {
         const resp = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${id}`
+          `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/${id}`
         );
         if (resp.data.success) {
           setPost(resp.data.data);
@@ -257,7 +257,7 @@ const SinglePostPage = () => {
     } catch (error) {
       console.error("Voting error:", error);
       const resp = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${id}`
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/${id}`
       );
       if (resp.data.success) {
         setPost(resp.data.data);
@@ -335,7 +335,7 @@ const SinglePostPage = () => {
                                 className="bg-gray-200 w-11 h-11 rounded-full"
                                 src={
                                   postCreator?.avatar?.includes("uploads")
-                                    ? `${import.meta.env.VITE_API_BASE_URL}/${postCreator.avatar}`
+                                    ? `https://reddit-clone-backend-sdts.onrender.com/${postCreator.avatar}`
                                     : postCreator?.avatar ||
                                       "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_7.png"
                                 }
@@ -383,7 +383,7 @@ const SinglePostPage = () => {
                                         className="w-full"
                                         src={
                                           post.image.includes("uploads")
-                                            ? `${import.meta.env.VITE_API_BASE_URL}/${post.image}`
+                                            ? `https://reddit-clone-backend-sdts.onrender.com/${post.image}`
                                             : post.image
                                         }
                                         alt={post.image}
@@ -585,7 +585,7 @@ const SinglePostPage = () => {
                             src={
                               comment.userAvatar
                                 ? comment.userAvatar.includes("uploads")
-                                  ? `${import.meta.env.VITE_API_BASE_URL}/${comment.userAvatar}`
+                                  ? `https://reddit-clone-backend-sdts.onrender.com/${comment.userAvatar}`
                                   : comment.userAvatar
                                 : "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_7.png"
                             }

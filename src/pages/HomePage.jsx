@@ -31,7 +31,7 @@ const HomePage = () => {
     try {
       setLoading(true)
       const postsResp = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/all`
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/all`
       );
 
       if (postsResp.data.success) {
@@ -44,7 +44,7 @@ const HomePage = () => {
         const commentsPromises = posts.map(async (post) => {
           try {
             const commentsResp = await axios.get(
-              `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/comments/${post._id}`
+              `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/comments/${post._id}`
             );
             return {
               postId: post._id,
@@ -68,7 +68,7 @@ const HomePage = () => {
         const userPromises = uniqueUserIds.map(async (userId) => {
           try {
             const userResp = await axios.get(
-              `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/${userId}`
+              `https://reddit-clone-backend-sdts.onrender.com/reddit/api/user/${userId}`
             );
 
             const userData = userResp.data.data;
@@ -160,7 +160,7 @@ const HomePage = () => {
 
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${postId}/vote?action=${action}`,
+        `https://reddit-clone-backend-sdts.onrender.com/reddit/api/posts/${postId}/vote?action=${action}`,
         { userId }
       );
 
@@ -225,7 +225,7 @@ const HomePage = () => {
                                 src={
                                   postUsers[post.user_id]?.avatar &&
                                   postUsers[post.user_id].avatar.includes("uploads")
-                                    ? `${import.meta.env.VITE_API_BASE_URL}/${
+                                    ? `https://reddit-clone-backend-sdts.onrender.com/${
                                         postUsers[post.user_id].avatar
                                       }`
                                     : postUsers[post.user_id]?.avatar
@@ -277,7 +277,7 @@ const HomePage = () => {
                                           className="w-full"
                                           src={
                                             post.image.includes("uploads")
-                                              ? `${import.meta.env.VITE_API_BASE_URL}/${post.image}`
+                                              ? `https://reddit-clone-backend-sdts.onrender.com/${post.image}`
                                               : post.image
                                           }
                                           alt={post.image}

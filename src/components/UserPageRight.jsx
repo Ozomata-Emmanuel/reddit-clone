@@ -13,7 +13,7 @@ const UserPageRight = () => {
   const [userProfile, setUserProfile] = useState({})
   const getUser = async()=> {
     try {
-      const resp = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/${id}`);
+      const resp = await axios.get(`https://reddit-clone-backend-sdts.onrender.com/reddit/api/user/${id}`);
       if (resp.data.success){
         setUserProfile(resp.data.data);
       } else {
