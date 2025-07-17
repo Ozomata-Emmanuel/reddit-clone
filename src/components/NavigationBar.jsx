@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { IoCloseOutline } from "react-icons/io5";
 import { IoAddOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -78,7 +78,12 @@ const NavigationBar = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
-    if (!signUpData.email || !signUpData.username || !signUpData.password || !signUpData.gender) {
+    if (
+      !signUpData.email ||
+      !signUpData.username ||
+      !signUpData.password ||
+      !signUpData.gender
+    ) {
       toast.error("Please fill in all fields", {
         position: "top-right",
         autoClose: 3000,
@@ -160,10 +165,10 @@ const NavigationBar = () => {
         loginData
       );
       if (resp.data.success) {
-        if(resp.data.data.role === "admin") {
+        if (resp.data.data.role === "admin") {
           localStorage.setItem("reddit_user_id", resp.data.data.id);
           setUser(resp.data.data);
-          navigate("/dashboard/overview")
+          navigate("/dashboard/overview");
           toast.success("Admin logged in successfully", {
             position: "top-right",
             autoClose: 2000,
@@ -172,10 +177,13 @@ const NavigationBar = () => {
             pauseOnHover: true,
             draggable: true,
           });
-          window.location.reload()
-          isLoggedIn
+          window.location.reload();
+          isLoggedIn;
         }
-        if(resp.data.data.role === "user" && resp.data.data.status === "active"){
+        if (
+          resp.data.data.role === "user" &&
+          resp.data.data.status === "active"
+        ) {
           localStorage.setItem("reddit_user_id", resp.data.data.id);
           setUser(resp.data.data);
           toast.success("User Logged in successfully", {
@@ -186,19 +194,22 @@ const NavigationBar = () => {
             pauseOnHover: true,
             draggable: true,
           });
-          window.location.reload()
-          isLoggedIn
+          window.location.reload();
+          isLoggedIn;
         }
-        if(resp.data.data.status === "disabled"){
-          toast.warning("Your account has been disabled please contact us for more information", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
-          return
+        if (resp.data.data.status === "disabled") {
+          toast.warning(
+            "Your account has been disabled please contact us for more information",
+            {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            }
+          );
+          return;
         }
         setShowModal(false);
         setLoginData({
@@ -206,36 +217,42 @@ const NavigationBar = () => {
           password: "",
         });
       } else {
-        toast.error(resp?.data?.message || "An error occured while logging in", {
+        toast.error(
+          resp?.data?.message || "An error occured while logging in",
+          {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        error?.response?.data?.message || "An error occured while logging in",
+        {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "An error occured while logging in", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+        }
+      );
     } finally {
-      isLoggedIn
-      getUser()
+      isLoggedIn;
+      getUser();
       setLoading(false);
     }
   };
 
   function logout() {
     localStorage.removeItem("reddit_user_id");
-    setUser(null)
-    navigate("/")
+    setUser(null);
+    navigate("/");
     toast.info("Logged out successfully", {
       position: "top-right",
       autoClose: 2000,
@@ -254,19 +271,23 @@ const NavigationBar = () => {
       <nav className="bg-white fixed z-40 w-full flex justify-between h-14 items-center border-b-1 px-3 border-gray-300">
         <div>
           <div className="flex w-27 items-center">
-            <div onClick={toggleSideBar} className="flex w-10 h-10 md:hidden lg:hidden rounded-full mr-2 hover:bg-gray-100 transition-colors duration-150 items-center justify-center">
-              <FiMenu className=""/>
+            <div
+              onClick={toggleSideBar}
+              className="flex w-10 h-10 md:hidden lg:hidden rounded-full mr-2 hover:bg-gray-100 transition-colors duration-150 items-center justify-center"
+            >
+              <FiMenu className="" />
             </div>
-            {
-              showSideBar ? (
-                <div className="w-full flex md:hidden lg:hidden top-14 h-[250%] fixed z-30 left-0">
-                  <div onClick={toggleSideBar} className="bg-[#0000009c] h-full w-full"></div>
-                  <HomeSideBar/>  
-                </div>
-              ) : (
-                <div className=""></div>
-              )
-            }
+            {showSideBar ? (
+              <div className="w-full flex md:hidden lg:hidden top-14 h-[250%] fixed z-30 left-0">
+                <div
+                  onClick={toggleSideBar}
+                  className="bg-[#0000009c] h-full w-full"
+                ></div>
+                <HomeSideBar />
+              </div>
+            ) : (
+              <div className=""></div>
+            )}
             <Link className="flex items-center" to="/">
               <img
                 className="w-[35px] h-[35px]"
@@ -310,11 +331,18 @@ const NavigationBar = () => {
                 <IoMdNotificationsOutline className="lg:text-2xl md:text-xl text-lg" />
               </div>
             </div>
-            <div onClick={toggleProfileModal} className="cursor-pointer right-0 rounded-full flex items-center border-4 md:hover:border-[#cbdcec] lg:hover:border-[#cbdcec] border-[#ffffff] transition duration-200">
+            <div
+              onClick={toggleProfileModal}
+              className="cursor-pointer right-0 rounded-full flex items-center border-4 md:hover:border-[#cbdcec] lg:hover:border-[#cbdcec] border-[#ffffff] transition duration-200"
+            >
               <div className="h-8 w-8">
                 <img
                   className="rounded-full h-8 w-8"
-                  src={user?.avatar?.includes('uploads') ? `https://reddit-clone-backend-sdts.onrender.com/${user.avatar}` : user.avatar}
+                  src={
+                    user?.avatar?.includes("uploads")
+                      ? `https://reddit-clone-backend-sdts.onrender.com/${user.avatar}`
+                      : user.avatar
+                  }
                   alt=""
                 />
                 <div className="relative">
@@ -351,216 +379,240 @@ const NavigationBar = () => {
       </nav>
 
       {showModal && (
-        <div className="fixed inset-0 bg-[#060a117e]  flex justify-center items-center z-40">
-          <div className="bg-white z-50 rounded-2xl h-[630px] w-[520px] p-6">
-            <div className="flex justify-end">
+        <div className="fixed inset-0 bg-[#060a117e] flex justify-center items-center z-40 p-4 overflow-hidden">
+          <div className="bg-white z-50 relative rounded-2xl flex items-center w-full max-w-md md:max-w-lg lg:w-[520px] p-4 md:p-6 min-h-[520px]">
+            <div className="flex absolute top-3 right-3 justify-end">
               <button
                 onClick={toggleModal}
                 className="text-gray-700 cursor-pointer text-2xl rounded-full p-1 bg-gray-200 hover:bg-gray-300"
+                aria-label="Close modal"
               >
                 <IoCloseOutline />
               </button>
             </div>
 
-            {isLoginView ? (
-              <div className="px-12">
-                <div className="text-center text-[#181c1f]">
-                  <h2 className="text-2xl font-bold mb-2 mt-2">Log in</h2>
-                  <p className="text-sm text-[#414a4f] mb-4">
-                    By continuing, you agree to our{" "}
-                    <span className="text-blue-500 cursor-pointer hover:underline">
-                      User Agreement
-                    </span>{" "}
-                    and acknowledge that you understand the{" "}
-                    <span className="text-blue-500 cursor-pointer hover:underline">
-                      Privacy Policy
-                    </span>
-                    .
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <button className="w-full bg-white relative border border-gray-300 rounded-full py-[10px] flex items-center justify-center">
-                    <img
-                      src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
-                      alt=""
-                      className="absolute left-2 h-[20px] w-[20px]"
-                    />
-                    <span className="ml-2 font-semibold text-[#212121] text-sm">
-                      Continue with Google
-                    </span>
-                  </button>
-                  <button className="w-full bg-white relative border border-gray-300 rounded-full py-[10px] flex items-center justify-center">
-                    <img
-                      src="https://img.icons8.com/?size=100&id=95294&format=png&color=000000"
-                      alt=""
-                      className="absolute left-2 h-[20px] w-[20px]"
-                    />
-                    <span className="ml-2 font-semibold text-[#212121] text-sm">
-                      Continue with Apple
-                    </span>
-                  </button>
-
-                  <div className="relative flex justify-center items-center my-4 border-b-2 border-[#ebebeb]">
-                    <span className="fle px-[10px] mb-[-9px] bg-white text-[#5c6c74] text-xs">
-                      OR
-                    </span>
+            <div className="w-full">
+              {isLoginView ? (
+                <div className="px-4 py-5 sm:px-8 md:px-12">
+                  <div className="text-center text-[#181c1f]">
+                    <h2 className="text-xl sm:text-2xl font-bold mb-2 mt-2">
+                      Log in
+                    </h2>
+                    <p className="text-xs sm:text-sm text-[#414a4f] mb-4">
+                      By continuing, you agree to our{" "}
+                      <span className="text-blue-500 cursor-pointer hover:underline">
+                        User Agreement
+                      </span>{" "}
+                      and acknowledge that you understand the{" "}
+                      <span className="text-blue-500 cursor-pointer hover:underline">
+                        Privacy Policy
+                      </span>
+                      .
+                    </p>
                   </div>
 
-                  <input
-                    type="text"
-                    placeholder="Email or username *"
-                    value={loginData.email}
-                    onChange={handleInput}
-                    name="email"
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-5 text-sm"
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password *"
-                    value={loginData.password}
-                    onChange={handleInput}
-                    name="password"
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-5 text-sm"
-                  />
+                  <div className="space-y-3">
+                    <button className="w-full bg-white relative border border-gray-300 rounded-full py-2 sm:py-[10px] flex items-center justify-center hover:bg-gray-50 transition-colors">
+                      <img
+                        src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+                        alt="Google logo"
+                        className="absolute left-3 h-4 w-4 sm:h-5 sm:w-5"
+                      />
+                      <span className="ml-4 font-semibold text-[#212121] text-xs sm:text-sm">
+                        Continue with Google
+                      </span>
+                    </button>
 
-                  <p className="text-sm mb-3 text-blue-500 cursor-pointer hover:underline">
-                    Forgot password?
-                  </p>
+                    <button className="w-full bg-white relative border border-gray-300 rounded-full py-2 sm:py-[10px] flex items-center justify-center hover:bg-gray-50 transition-colors">
+                      <img
+                        src="https://img.icons8.com/?size=100&id=95294&format=png&color=000000"
+                        alt="Apple logo"
+                        className="absolute left-3 h-4 w-4 sm:h-5 sm:w-5"
+                      />
+                      <span className="ml-4 font-semibold text-[#212121] text-xs sm:text-sm">
+                        Continue with Apple
+                      </span>
+                    </button>
 
-                  <p className="text-sm mb-15 text-[#5f5f5f]">
-                    New to Reddit?{" "}
-                    <button
-                      onClick={switchToSignup}
-                      className="text-blue-500 cursor-pointer hover:underline"
-                    >
+                    <div className="relative flex justify-center items-center my-3 sm:my-4 border-b-2 border-[#ebebeb]">
+                      <span className="px-3 mb-[-8px] bg-white text-[#5c6c74] text-xs">
+                        OR
+                      </span>
+                    </div>
+
+                    <input
+                      type="text"
+                      placeholder="Email or username *"
+                      value={loginData.email}
+                      onChange={handleInput}
+                      name="email"
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-sm sm:placeholder:text-base rounded-3xl px-4 py-3 sm:py-4 text-sm"
+                      required
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password *"
+                      value={loginData.password}
+                      onChange={handleInput}
+                      name="password"
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-sm sm:placeholder:text-base rounded-3xl px-4 py-3 sm:py-4 text-sm"
+                      required
+                    />
+
+                    <p className="text-xs sm:text-sm mb-3 text-blue-500 cursor-pointer hover:underline">
+                      Forgot password?
+                    </p>
+
+                    <p className="text-xs sm:text-sm mb-4 text-[#5f5f5f]">
+                      New to Reddit?{" "}
+                      <button
+                        onClick={switchToSignup}
+                        className="text-blue-500 cursor-pointer hover:underline"
+                      >
+                        Sign Up
+                      </button>
+                    </p>
+
+                    {loading ? (
+                      <button className="w-full cursor-not-allowed bg-[#d93a00b4] text-white rounded-full py-2 text-sm sm:text-base font-semibold">
+                        Logging in...
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleLogin}
+                        className="w-full cursor-pointer bg-[#d93900] hover:bg-[#c53200] text-white rounded-full py-2 text-sm sm:text-base font-semibold transition-colors"
+                      >
+                        Log In
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="px-4 py-5 sm:px-8 md:px-12">
+                  <div className="text-center text-[#181c1f]">
+                    <h2 className="text-xl sm:text-2xl font-bold mb-2">
                       Sign Up
-                    </button>
-                  </p>
-                  {loading ? (
-                    <button className="w-full cursor-not-allowed  bg-[#d93a00b4] text-white rounded-full py-2 text-md font-semibold">
-                      Loging in...
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleLogin}
-                      className="w-full cursor-pointer bg-[#d93900] text-white rounded-full py-2 text-md font-semibold"
-                    >
-                      Log In
-                    </button>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="px-12">
-                <div className="text-center text-[#181c1f]">
-                  <h2 className="text-2xl font-bold mb-2 mt-2">Sign Up</h2>
-                  <p className="text-sm text-[#414a4f] mb-4">
-                    By continuing, you agree to our{" "}
-                    <span className="text-blue-500 cursor-pointer hover:underline">
-                      User Agreement
-                    </span>{" "}
-                    and acknowledge that you understand the{" "}
-                    <span className="text-blue-500 cursor-pointer hover:underline">
-                      Privacy Policy
-                    </span>
-                    .
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <button className="w-full bg-white relative border border-gray-300 rounded-full py-[10px] flex items-center justify-center">
-                    <img
-                      src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
-                      alt=""
-                      className="absolute left-2 h-[20px] w-[20px]"
-                    />
-                    <span className="ml-2 font-semibold text-[#212121] text-sm">
-                      Continue with Google
-                    </span>
-                  </button>
-                  <button className="w-full bg-white relative border border-gray-300 rounded-full py-[10px] flex items-center justify-center">
-                    <img
-                      src="https://img.icons8.com/?size=100&id=95294&format=png&color=000000"
-                      alt=""
-                      className="absolute left-2 h-[20px] w-[20px]"
-                    />
-                    <span className="ml-2 font-semibold text-[#212121] text-sm">
-                      Continue with Apple
-                    </span>
-                  </button>
-
-                  <div className="relative flex justify-center items-center my-4 border-b-2 border-[#ebebeb]">
-                    <span className="fle px-[10px] mb-[-9px] bg-white text-[#5c6c74] text-xs">
-                      OR
-                    </span>
+                    </h2>
+                    <p className="text-xs sm:text-sm text-[#414a4f] mb-4">
+                      By continuing, you agree to our{" "}
+                      <span className="text-blue-500 cursor-pointer hover:underline">
+                        User Agreement
+                      </span>{" "}
+                      and acknowledge that you understand the{" "}
+                      <span className="text-blue-500 cursor-pointer hover:underline">
+                        Privacy Policy
+                      </span>
+                      .
+                    </p>
                   </div>
 
-                  <input
-                    type="text"
-                    placeholder="Email *"
-                    value={signUpData.email}
-                    onChange={handleInput}
-                    name="email"
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-4 text-sm"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Username *"
-                    value={signUpData.username}
-                    onChange={handleInput}
-                    name="username"
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-4 text-sm"
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password *"
-                    value={signUpData.password}
-                    onChange={handleInput}
-                    name="password"
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-4 text-sm"
-                  />
-                  <select
-                    name="gender"
-                    value={signUpData.gender}
-                    onChange={handleInput}
-                    className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-[16px] rounded-3xl px-4 py-4 text-sm appearance-none"
-                  >
-                    <option value="">Select your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
+                  <div className="space-y-3">
+                    <button className="w-full bg-white relative border border-gray-300 rounded-full py-2 sm:py-[10px] flex items-center justify-center hover:bg-gray-50 transition-colors">
+                      <img
+                        src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000"
+                        alt="Google logo"
+                        className="absolute left-3 h-4 w-4 sm:h-5 sm:w-5"
+                      />
+                      <span className="ml-4 font-semibold text-[#212121] text-xs sm:text-sm">
+                        Continue with Google
+                      </span>
+                    </button>
 
-                  <p className="text-sm mb-5 text-[#5f5f5f]">
-                    Already a redditor?{" "}
-                    <button
-                      onClick={switchToLogin}
-                      className="text-blue-500 cursor-pointer hover:underline"
+                    <button className="w-full bg-white relative border border-gray-300 rounded-full py-2 sm:py-[10px] flex items-center justify-center hover:bg-gray-50 transition-colors">
+                      <img
+                        src="https://img.icons8.com/?size=100&id=95294&format=png&color=000000"
+                        alt="Apple logo"
+                        className="absolute left-3 h-4 w-4 sm:h-5 sm:w-5"
+                      />
+                      <span className="ml-4 font-semibold text-[#212121] text-xs sm:text-sm">
+                        Continue with Apple
+                      </span>
+                    </button>
+
+                    <div className="relative flex justify-center items-center my-3 sm:my-4 border-b-2 border-[#ebebeb]">
+                      <span className="px-3 mb-[-8px] bg-white text-[#5c6c74] text-xs">
+                        OR
+                      </span>
+                    </div>
+
+                    <input
+                      type="email"
+                      placeholder="Email *"
+                      value={signUpData.email}
+                      onChange={handleInput}
+                      name="email"
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-sm sm:placeholder:text-base rounded-3xl px-4 py-3 sm:py-4 text-sm"
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Username *"
+                      value={signUpData.username}
+                      onChange={handleInput}
+                      name="username"
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-sm sm:placeholder:text-base rounded-3xl px-4 py-3 sm:py-4 text-sm"
+                      required
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password *"
+                      value={signUpData.password}
+                      onChange={handleInput}
+                      name="password"
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] placeholder:text-sm sm:placeholder:text-base rounded-3xl px-4 py-3 sm:py-4 text-sm"
+                      required
+                    />
+                    <select
+                      name="gender"
+                      value={signUpData.gender}
+                      onChange={handleInput}
+                      className="w-full focus:outline-2 outline-0 outline-blue-500 bg-[#e5ebee] text-sm rounded-3xl px-4 py-3 sm:py-4 appearance-none"
+                      required
                     >
-                      Log In
-                    </button>
-                  </p>
-                  {loading ? (
-                    <button className="w-full cursor-not-allowed  bg-[#d93a00b4] text-white rounded-full py-2 text-md font-semibold">
-                      Signing Up...
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleSignUp}
-                      className="w-full cursor-pointer bg-[#d93900] text-white rounded-full py-2 text-md font-semibold"
-                    >
-                      Sign Up
-                    </button>
-                  )}
+                      <option value="">Select your gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                      <option value="prefer-not-to-say">
+                        Prefer not to say
+                      </option>
+                    </select>
+
+                    <p className="text-xs sm:text-sm mb-4 text-[#5f5f5f]">
+                      Already a redditor?{" "}
+                      <button
+                        onClick={switchToLogin}
+                        className="text-blue-500 cursor-pointer hover:underline"
+                      >
+                        Log In
+                      </button>
+                    </p>
+
+                    {loading ? (
+                      <button className="w-full cursor-not-allowed bg-[#d93a00b4] text-white rounded-full py-2 text-sm sm:text-base font-semibold">
+                        Signing Up...
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleSignUp}
+                        className="w-full cursor-pointer bg-[#d93900] hover:bg-[#c53200] text-white rounded-full py-2 text-sm sm:text-base font-semibold transition-colors"
+                      >
+                        Sign Up
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}
 
       {showUserModal && (
-        <div onClick={toggleProfileModal}  className="fixed inset-0 bg-[#00000015] flex justify-end z-40">
+        <div
+          onClick={toggleProfileModal}
+          className="fixed inset-0 bg-[#00000015] flex justify-end z-40"
+        >
           <div className=" z-50 w-[270px] mt-14 mr-2 ">
             <div className="bg-white shadow-lg rounded-xl overflow-hidden">
               <Link to={`/user_profile/${user.id}`}>
@@ -568,7 +620,11 @@ const NavigationBar = () => {
                   <div className="rounded-full relative w-8 h-8">
                     <img
                       className="rounded-full"
-                      src={user?.avatar?.includes('uploads') ? `https://reddit-clone-backend-sdts.onrender.com/${user.avatar}` : user.avatar}
+                      src={
+                        user?.avatar?.includes("uploads")
+                          ? `https://reddit-clone-backend-sdts.onrender.com/${user.avatar}`
+                          : user.avatar
+                      }
                       alt=""
                     />
                     <div className="relative">
