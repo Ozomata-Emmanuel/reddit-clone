@@ -37,7 +37,7 @@ const DashboardUsers = () => {
       setLoading(true);
       setError(null);
       const response = await axios.put(
-        `http://localhost:5002/reddit/api/updateUser/status/${userID}`,
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/updateUser/status/${userID}`,
         { status: userStatus }
       );
 
@@ -116,7 +116,7 @@ const DashboardUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5002/reddit/api/users/all"
+          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/all`
         );
         if (response.data.success) {
           setUsers(response.data.data);
@@ -135,7 +135,7 @@ const DashboardUsers = () => {
   const getUser = async (id) => {
     try {
       const resp = await axios.get(
-        `http://localhost:5002/reddit/api/user/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/${id}`
       );
       if (resp.data.success) {
         setUser(resp.data.data);
@@ -149,7 +149,7 @@ const DashboardUsers = () => {
   const getUserComments = async (id) => {
     try {
       const resp = await axios.get(
-        `http://localhost:5002/reddit/api/user/comment/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/comment/${id}`
       );
       if (resp.data.success) {
         setAllComments(resp.data.data);
@@ -163,7 +163,7 @@ const DashboardUsers = () => {
   const getUserPosts = async (id) => {
     try {
       const resp = await axios.get(
-        `http://localhost:5002/reddit/api/posts/user/${id}`
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/user/${id}`
       );
       if (resp.data.success) {
         setUserPosts(resp.data.data);
@@ -181,7 +181,7 @@ const DashboardUsers = () => {
     if (confirmed) {
       try {
         const resp = await axios.delete(
-          `http://localhost:5002/reddit/api/posts/delete/${postId}`
+          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/delete/${postId}`
         );
         if (resp.data.success) {
           setUserPosts(userPosts.filter((post) => post._id !== postId));
@@ -227,7 +227,7 @@ const DashboardUsers = () => {
     if (confirmed) {
       try {
         const resp = await axios.delete(
-          `http://localhost:5002/reddit/api/user/comment/${commentId}`
+          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/comment/${commentId}`
         );
         if (resp.data.success) {
           setAllComments(
@@ -275,7 +275,7 @@ const DashboardUsers = () => {
     if (confirmed) {
       try {
         const resp = await axios.delete(
-          `http://localhost:5002/reddit/api/deleteUser/${userID}`
+          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/deleteUser/${userID}`
         );
         if (resp.data.success) {
           setUsers(users.filter((user) => user._id !== userID));
@@ -640,7 +640,7 @@ const DashboardUsers = () => {
                                         className="w-full"
                                         src={
                                           post.image.includes("uploads")
-                                            ? `http://localhost:5002/${post.image}`
+                                            ? `${process.env.REACT_APP_API_BASE_URL}/${post.image}`
                                             : post.image
                                         }
                                         alt={post.image}

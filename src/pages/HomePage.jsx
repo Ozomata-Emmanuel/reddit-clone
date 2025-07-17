@@ -31,7 +31,7 @@ const HomePage = () => {
     try {
       setLoading(true)
       const postsResp = await axios.get(
-        "http://localhost:5002/reddit/api/posts/all"
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/all`
       );
 
       if (postsResp.data.success) {
@@ -44,7 +44,7 @@ const HomePage = () => {
         const commentsPromises = posts.map(async (post) => {
           try {
             const commentsResp = await axios.get(
-              `http://localhost:5002/reddit/api/posts/comments/${post._id}`
+              `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/comments/${post._id}`
             );
             return {
               postId: post._id,
@@ -68,7 +68,7 @@ const HomePage = () => {
         const userPromises = uniqueUserIds.map(async (userId) => {
           try {
             const userResp = await axios.get(
-              `http://localhost:5002/reddit/api/user/${userId}`
+              `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/${userId}`
             );
 
             const userData = userResp.data.data;
@@ -160,7 +160,7 @@ const HomePage = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5002/reddit/api/posts/${postId}/vote?action=${action}`,
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/${postId}/vote?action=${action}`,
         { userId }
       );
 
@@ -225,7 +225,7 @@ const HomePage = () => {
                                 src={
                                   postUsers[post.user_id]?.avatar &&
                                   postUsers[post.user_id].avatar.includes("uploads")
-                                    ? `http://localhost:5002/${
+                                    ? `${process.env.REACT_APP_API_BASE_URL}/${
                                         postUsers[post.user_id].avatar
                                       }`
                                     : postUsers[post.user_id]?.avatar
@@ -277,7 +277,7 @@ const HomePage = () => {
                                           className="w-full"
                                           src={
                                             post.image.includes("uploads")
-                                              ? `http://localhost:5002/${post.image}`
+                                              ? `${process.env.REACT_APP_API_BASE_URL}/${post.image}`
                                               : post.image
                                           }
                                           alt={post.image}

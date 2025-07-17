@@ -10,7 +10,7 @@ function DataProvider({children}) {
   const [load, setLoad] = useState(false);
 
   const getUser = async(id)=> {
-    const resp = await axios.get(`http://localhost:5002/reddit/api/user/${id}`);
+    const resp = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/${id}`);
     setLoad(true)
     if (resp.data.success){
       setUser(resp.data.data);

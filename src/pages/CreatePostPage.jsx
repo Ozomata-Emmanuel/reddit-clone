@@ -71,7 +71,7 @@ const CreatePostPage = () => {
       formData.append("link", formdata.link);
 
       const resp = await axios.post(
-        "http://localhost:5002/reddit/api/posts/create",
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/create`,
         formData,
         {
           headers: {

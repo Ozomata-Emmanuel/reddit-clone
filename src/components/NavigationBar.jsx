@@ -93,7 +93,7 @@ const NavigationBar = () => {
     try {
       setLoading(true);
       const resp = await axios.post(
-        "http://localhost:5002/reddit/api/users/register",
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/register`,
         signUpData
       );
       if (resp.data.success) {
@@ -156,7 +156,7 @@ const NavigationBar = () => {
     try {
       setLoading(true);
       const resp = await axios.post(
-        "http://localhost:5002/reddit/api/users/login",
+        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/login`,
         loginData
       );
       console.log(resp);
@@ -316,7 +316,7 @@ const NavigationBar = () => {
               <div className="h-8 w-8">
                 <img
                   className="rounded-full h-8 w-8"
-                  src={user?.avatar?.includes('uploads') ? `http://localhost:5002/${user.avatar}` : user.avatar}
+                  src={user?.avatar?.includes('uploads') ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}` : user.avatar}
                   alt=""
                 />
                 <div className="relative">
@@ -570,7 +570,7 @@ const NavigationBar = () => {
                   <div className="rounded-full relative w-8 h-8">
                     <img
                       className="rounded-full"
-                      src={user?.avatar?.includes('uploads') ? `http://localhost:5002/${user.avatar}` : user.avatar}
+                      src={user?.avatar?.includes('uploads') ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}` : user.avatar}
                       alt=""
                     />
                     <div className="relative">
