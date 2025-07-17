@@ -159,6 +159,7 @@ const NavigationBar = () => {
         `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/login`,
         loginData
       );
+      console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
       console.log(resp);
       if (resp.data.success) {
         if(resp.data.data.role === "admin") {
