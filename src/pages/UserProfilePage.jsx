@@ -115,14 +115,14 @@ const UserProfilePage = () => {
     setLoading(true)
     try {
       const postsResp = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/user/${id}`
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/user/${id}`
       );
       if (postsResp.data.success) {
         setUserPosts(postsResp.data.data);
         const commentsPromises = postsResp.data.data.map(async (post) => {
           try {
             const commentsResp = await axios.get(
-              `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/comments/${post._id}`
+              `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/comments/${post._id}`
             );
             return {
               postId: post._id,
@@ -159,7 +159,7 @@ const UserProfilePage = () => {
     setLoading(true)
     try {
       const resp = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/comment/${id}`
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/comment/${id}`
       );
       if (resp.data.success) {
         setAllComments(resp.data.data);
@@ -175,7 +175,7 @@ const UserProfilePage = () => {
     setLoading(true)
     try {
       const resp = await axios.get(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/${id}`
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/${id}`
       );
       if (resp.data.success) {
         setUserProfile(resp.data.data);
@@ -205,7 +205,7 @@ const UserProfilePage = () => {
       setLoading(true)
       try {
         const resp = await axios.delete(
-          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/user/comment/${commentId}`
+          `${import.meta.env.VITE_API_BASE_URL}/reddit/api/user/comment/${commentId}`
         );
         if (resp.data.success) {
           setAllComments(
@@ -256,7 +256,7 @@ const UserProfilePage = () => {
       setLoading(true)
       try {
         const resp = await axios.delete(
-          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/delete/${postId}`
+          `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/delete/${postId}`
         );
         if (resp.data.success) {
           setUserPosts(userPosts.filter((post) => post._id !== postId));
@@ -364,7 +364,7 @@ const UserProfilePage = () => {
                         className="rounded-full w-18 h-18 border-2 border-gray-300"
                         src={
                           userProfile?.avatar?.includes("uploads")
-                            ? `${process.env.REACT_APP_API_BASE_URL}/${userProfile.avatar}`
+                            ? `${import.meta.env.VITE_API_BASE_URL}/${userProfile.avatar}`
                             : userProfile.avatar
                         }
                         alt=""
@@ -480,7 +480,7 @@ const UserProfilePage = () => {
                                     className="rounded-full w-7 h-7"
                                     src={
                                       userProfile?.avatar?.includes("uploads")
-                                        ? `${process.env.REACT_APP_API_BASE_URL}/${userProfile.avatar}`
+                                        ? `${import.meta.env.VITE_API_BASE_URL}/${userProfile.avatar}`
                                         : userProfile.avatar
                                     }
                                     alt=""
@@ -517,7 +517,7 @@ const UserProfilePage = () => {
                                               className="w-full"
                                               src={
                                                 post.image.includes("uploads")
-                                                  ? `${process.env.REACT_APP_API_BASE_URL}/${post.image}`
+                                                  ? `${import.meta.env.VITE_API_BASE_URL}/${post.image}`
                                                   : post.image
                                               }
                                               alt={post.image}
@@ -580,7 +580,7 @@ const UserProfilePage = () => {
                                     className="bg-gray-200 w-6 h-6 rounded-full"
                                     src={
                                       userProfile?.avatar?.includes("uploads")
-                                        ? `${process.env.REACT_APP_API_BASE_URL}/${userProfile.avatar}`
+                                        ? `${import.meta.env.VITE_API_BASE_URL}/${userProfile.avatar}`
                                         : userProfile.avatar
                                     }
                                     alt=""
@@ -652,7 +652,7 @@ const UserProfilePage = () => {
                                               className="w-full"
                                               src={
                                                 post.image.includes("uploads")
-                                                  ? `${process.env.REACT_APP_API_BASE_URL}/${post.image}`
+                                                  ? `${import.meta.env.VITE_API_BASE_URL}/${post.image}`
                                                   : post.image
                                               }
                                               alt={post.image}
@@ -718,7 +718,7 @@ const UserProfilePage = () => {
                                     className="bg-gray-200 w-8 h-8 rounded-full"
                                     src={
                                       userProfile?.avatar?.includes("uploads")
-                                        ? `${process.env.REACT_APP_API_BASE_URL}/${userProfile.avatar}`
+                                        ? `${import.meta.env.VITE_API_BASE_URL}/${userProfile.avatar}`
                                         : userProfile.avatar
                                     }
                                     alt=""

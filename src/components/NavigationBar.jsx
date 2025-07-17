@@ -93,7 +93,7 @@ const NavigationBar = () => {
     try {
       setLoading(true);
       const resp = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/register`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/users/register`,
         signUpData
       );
       if (resp.data.success) {
@@ -156,11 +156,9 @@ const NavigationBar = () => {
     try {
       setLoading(true);
       const resp = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/login`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/users/login`,
         loginData
       );
-      console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
-      console.log(resp);
       if (resp.data.success) {
         if(resp.data.data.role === "admin") {
           localStorage.setItem("reddit_user_id", resp.data.data.id);
@@ -203,8 +201,11 @@ const NavigationBar = () => {
           return
         }
         setShowModal(false);
+        setLoginData({
+          email: "",
+          password: "",
+        });
       } else {
-        console.log(resp.data)
         toast.error(resp?.data?.message || "An error occured while logging in", {
           position: "top-right",
           autoClose: 2000,
@@ -228,10 +229,6 @@ const NavigationBar = () => {
       isLoggedIn
       getUser()
       setLoading(false);
-      setLoginData({
-        email: "",
-        password: "",
-      });
     }
   };
 
@@ -317,7 +314,7 @@ const NavigationBar = () => {
               <div className="h-8 w-8">
                 <img
                   className="rounded-full h-8 w-8"
-                  src={user?.avatar?.includes('uploads') ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}` : user.avatar}
+                  src={user?.avatar?.includes('uploads') ? `${import.meta.env.VITE_API_BASE_URL}/${user.avatar}` : user.avatar}
                   alt=""
                 />
                 <div className="relative">
@@ -571,7 +568,7 @@ const NavigationBar = () => {
                   <div className="rounded-full relative w-8 h-8">
                     <img
                       className="rounded-full"
-                      src={user?.avatar?.includes('uploads') ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}` : user.avatar}
+                      src={user?.avatar?.includes('uploads') ? `${import.meta.env.VITE_API_BASE_URL}/${user.avatar}` : user.avatar}
                       alt=""
                     />
                     <div className="relative">

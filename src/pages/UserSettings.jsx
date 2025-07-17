@@ -52,7 +52,7 @@ const UserSettings = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/updateUser/username/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/updateUser/username/${id}`,
         {
           username,
         }
@@ -94,7 +94,7 @@ const UserSettings = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/updateUser/password/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/updateUser/password/${id}`,
         {
           currentPassword,
           newPassword,
@@ -136,7 +136,7 @@ const UserSettings = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/updateUser/gender/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/updateUser/gender/${id}`,
         {
           gender,
         }
@@ -178,7 +178,7 @@ const UserSettings = () => {
       formData.append("avatar", avatar);
 
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/updateUser/avatar/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/updateUser/avatar/${id}`,
         formData,
         {
           headers: {
@@ -336,7 +336,7 @@ const UserSettings = () => {
                         className="rounded-full w-full h-full object-cover"
                         src={
                           user?.avatar?.includes("uploads")
-                            ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}`
+                            ? `${import.meta.env.VITE_API_BASE_URL}/${user.avatar}`
                             : user.avatar
                         }
                         alt="Avatar"
@@ -541,7 +541,7 @@ const UserSettings = () => {
                     <img
                       src={
                         user?.avatar?.includes("uploads")
-                          ? `${process.env.REACT_APP_API_BASE_URL}/${user.avatar}`
+                          ? `${import.meta.env.VITE_API_BASE_URL}/${user.avatar}`
                           : user.avatar
                       }
                       alt="Avatar Current"

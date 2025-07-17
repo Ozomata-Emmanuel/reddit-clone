@@ -12,6 +12,7 @@ import UserSettings from './pages/UserSettings';
 import EditPostPage from './pages/EditPostPage';
 import { useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
+import NotFound from './pages/NotFound';
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/edit_post/:id" element={<EditPostPage />} />
         <Route path="/create_post" element={<CreatePostPage />} />
         <Route path="/settings/:id" element={<UserSettings />} />
+        <Route path="*" element={<NotFound />} />
         
         {isAdmin() && (
           <Route path="/dashboard" element={<DashboardPage />}>

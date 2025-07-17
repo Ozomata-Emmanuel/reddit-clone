@@ -89,9 +89,9 @@ const DashboardOverview = () => {
     try {
       setLoading(true);
       const [usersResp, postsResp, commentsResp] = await Promise.all([
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/reddit/api/users/allusers`),
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/all`),
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/reddit/api/comments/all`)
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/reddit/api/users/allusers`),
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/all`),
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/reddit/api/comments/all`)
       ]);
 
       setAllUsers(usersResp.data?.success ? usersResp.data.data : []);

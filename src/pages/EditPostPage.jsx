@@ -86,7 +86,7 @@ const EditPostPage = () => {
       formData.append("link", formdata.link);
 
       const resp = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/edit/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/edit/${id}`,
         formData,
         {
           headers: {
@@ -168,7 +168,7 @@ const EditPostPage = () => {
       setLoading(true);
       try {
         const resp = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/reddit/api/posts/${id}`
+          `${import.meta.env.VITE_API_BASE_URL}/reddit/api/posts/${id}`
         );
         if (resp.data.success) {
           setPost(resp.data.data);
@@ -338,7 +338,7 @@ const EditPostPage = () => {
                                 <img
                                   src={
                                     post.image.includes("uploads")
-                                      ? `${process.env.REACT_APP_API_BASE_URL}/${post.image}`
+                                      ? `${import.meta.env.VITE_API_BASE_URL}/${post.image}`
                                       : post.image
                                   }
                                   alt="image"
